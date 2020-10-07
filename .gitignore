@@ -1,0 +1,21 @@
+# Created by https://www.gitignore.io/api/jupyternotebooks
+# Edit at https://www.gitignore.io/?templates=jupyternotebooks
+
+### JupyterNotebooks ###
+# gitignore template for Jupyter Notebooks
+# website: http://jupyter.org/
+
+.DS_Store
+.ipynb_checkpoints
+.vscode
+__pycache__/
+data/
+libraries/
+*/.ipynb_checkpoints/*
+
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
