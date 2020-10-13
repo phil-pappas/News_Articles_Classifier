@@ -1,14 +1,4 @@
-import pandas as pd
-import time
-import collections
-import stop_words
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-import seaborn as sns
-import matplotlib.pyplot as plt
-import nltk
-from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer 
+from packages_imported import *
 
 class EDA:
     #def __init__(self):
