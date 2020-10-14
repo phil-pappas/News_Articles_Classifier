@@ -68,7 +68,7 @@ class Cleaner:
         # maybe make it also to remove 2-chars? no many meaningful words exist see here: https://www.lexico.com/explore/two-letter-words
         # if also for 2-chars use this: \s(([a-z]{1})|([a-z]{2}))\b
         df.Text.replace(
-            r'(\s+|\s+\.)(?<=\s|)[a-z](?=\s|\.{1}[^a-z])', ' ', regex=True, inplace=True)
+            r'((?<=\s)|(?<=[^a-z]\.))[a-z](?=\s|\.{1}[^a-z])', ' ', regex=True, inplace=True)
         return df
 
     def remove_double_chars(df):
@@ -123,7 +123,7 @@ class Cleaner:
         # removes all multiple dots, hyphen (..) or surrounded by spaces
         # e.g. ".... . .", " - - - ---"
         df.Text.replace(
-            r'(?<=\s)((\.)|(\.{2,})|(\-)|(\-{2,}))(?=\s)', ' ', regex=True, inplace=True)
+            r'((?<=\s)|(?<=[a-z0-9]{2}))((\.)|(\.{2,})|(\-)|(\-{2,}))(?=\s)', ' ', regex=True, inplace=True)
         return df
 
     def remove_numbers(df):
