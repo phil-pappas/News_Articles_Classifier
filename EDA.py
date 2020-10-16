@@ -123,3 +123,38 @@ class EDA:
     def count_records_per_label(df, new_column_name):
         "count the number of records for each category and store them in a new column"
         return df.groupby(['Category'], sort=False).size().reset_index(name=new_column_name)
+
+    # DATASET TO BALANCE FUNCTION
+    def balance_dataset_distribution(df):
+        df_num_records = EDA.count_records_per_label(df, "num_records")
+        df_num_records.sort_values(
+            by='num_records', ascending=True, inplace=True)
+        df_num_records.reset_index(drop=True, inplace=True)
+        minority_class_name = df_num_records['Category'][0]
+        minority_class_number = df_num_records['num_records'][0]
+
+        min_words = int(df.Text_TotalWords.quantile(0.10))
+        max_words = int(df.Text_TotalWords.quantile(0.90))
+        frames = []
+
+        for class_name in df['Category'].unique():
+            if (class_name != minority_class_name):
+
+                df_temp = df.loc[(df['Text_TotalWords'] >= min_words) & (
+                    df['Text_TotalWords'] <= max_words) & (df['Category'] == class_name)]
+                if (len(df_temp) <= minority_class_number):
+                    # gets 100% of the dataset
+                    df_temp = df_temp.sample(frac=1)
+                    test_num = len(df_temp)
+                else:
+                    frac_percentage = (minority_class_number / len(df_temp))
+                    # gets the percentage equal to the larget dataset
+                    df_temp = df_temp.sample(frac=frac_percentage)
+
+                frames.append(df_temp)
+
+        result = pd.concat(frames)
+        frames = []
+        del df_temp, df
+        result.reset_index(drop=True, inplace=True)
+        return(result)
