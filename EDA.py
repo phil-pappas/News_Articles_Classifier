@@ -58,6 +58,49 @@ class EDA:
         plt.show()
         # plt.savefig("Category-articles.png")
 
+    def display_distribution_donut(df, values_column, labels_column):
+        '''        
+        ------------------------- [Input Parameters] -------------------------
+        --- df: Dataframe with number of records to visualise
+        --- values_column: The name of the column that contains the number of records
+        --- labels_column: The name of the column that contains the names of each class
+        ----------------------------------------------------------------------
+        '''
+        fig = {
+            "data": [
+                {
+                    "values": df[values_column],
+                    "labels": df[labels_column],
+                    "textposition": "outside",
+                    "domain": {"x": [0, .77]},
+                    "name": "Criticality",
+                    "marker": {'colors': px.colors.cyclical.Twilight
+                               },
+                    "textinfo": "percent+label",
+                    "textfont": {'color': '#000000', 'size': 15},
+                    "hole": .5,
+                    "type": "pie",
+                    "automargin": False
+                }],
+            "layout": {
+                "title": "Dataset Distribution",
+                "annotations": [
+                    {
+                        "font": {
+                            "size": 25,
+                            "color": '#000000'
+                        },
+                        "showarrow": False,
+                        "text": "News",
+                        "x": 0.31,
+                        "y": 0.5
+                    }
+                ]
+            }
+        }
+
+        iplot(fig)
+
     def display_buzzwords(text_values):
         '''[Input] text_values: Array of text elements separated by comma'''
         t1 = time.time()
@@ -126,7 +169,7 @@ class EDA:
 
     def balance_dataset_distribution(df, min_quantile, max_quantile):
         '''
-        --- [Input Parameters] -----------------------------------------------
+        ------------------------- [Input Parameters] -------------------------
         --- df: Dataframe to balance
         --- min_quantile: A float number the minimum quantile value to extract
         --- max_quantile: A float number the maximum quantile value to extract

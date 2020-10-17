@@ -9,5 +9,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import nltk
 from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import WordNetLemmatizer
 import plotly.express as px
+from plotly.offline import iplot
