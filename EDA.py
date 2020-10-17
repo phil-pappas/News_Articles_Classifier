@@ -124,37 +124,55 @@ class EDA:
         "count the number of records for each category and store them in a new column"
         return df.groupby(['Category'], sort=False).size().reset_index(name=new_column_name)
 
-    # DATASET TO BALANCE FUNCTION
-    def balance_dataset_distribution(df):
+    def balance_dataset_distribution(df, min_quantile, max_quantile):
+        '''
+        --- [Input Parameters] -----------------------------------------------
+        --- df: Dataframe to balance
+        --- min_quantile: A float number the minimum quantile value to extract
+        --- max_quantile: A float number the maximum quantile value to extract
+        ----------------------------------------------------------------------
+        1) First we find the class with the fewest records and we keep the name and the number of records of it. 
+        2) Secondly, for each class we retrieve all the records that are between the min and max values of quantiles that were given. 
+        3) Lastly, we check if the retrieved number of records are less than the minority_class_number. If yes, then we take the 100% of the retrieved. If it is not, then we take the percentage of the class records that equals to the minority class (frac_percentage)
+        In the end, we concatenate all the dataframes and we return the final dataframe.
+        '''
+        '''----- Find the minority class -----'''
         df_num_records = EDA.count_records_per_label(df, "num_records")
         df_num_records.sort_values(
-            by='num_records', ascending=True, inplace=True)
-        df_num_records.reset_index(drop=True, inplace=True)
+            by='num_records', ascending=True, inplace=True)  # sort based on the number of records
+        df_num_records.reset_index(
+            drop=True, inplace=True)  # reset the indexes
+        # get the 1st record since it's sorted in ascending order
         minority_class_name = df_num_records['Category'][0]
         minority_class_number = df_num_records['num_records'][0]
 
-        min_words = int(df.Text_TotalWords.quantile(0.10))
-        max_words = int(df.Text_TotalWords.quantile(0.90))
+        '''----- Put all the records of the minority class in the final dataframe -----'''
         frames = []
+        df_temp = df.loc[(df['Category'] == minority_class_name)]
+        frames.append(df_temp)
+
+        min_words = int(df.Text_TotalWords.quantile(min_quantile))
+        max_words = int(df.Text_TotalWords.quantile(max_quantile))
 
         for class_name in df['Category'].unique():
-            if (class_name != minority_class_name):
+            if (class_name != minority_class_name):  # escape the minority class
 
+                # Retrieve all the records of a given class that are between the min and max of the quantiles
                 df_temp = df.loc[(df['Text_TotalWords'] >= min_words) & (
                     df['Text_TotalWords'] <= max_words) & (df['Category'] == class_name)]
                 if (len(df_temp) <= minority_class_number):
-                    # gets 100% of the dataset
+                    # If the class records are less that the minority class, then get the 100% of the records (frac=1)
                     df_temp = df_temp.sample(frac=1)
-                    test_num = len(df_temp)
                 else:
-                    frac_percentage = (minority_class_number / len(df_temp))
-                    # gets the percentage equal to the larget dataset
+                    # find the percentage of a given class that represents the records of the minority class
+                    frac_percentage = (
+                        minority_class_number / len(df_temp))  # e.g. 0.75
                     df_temp = df_temp.sample(frac=frac_percentage)
 
                 frames.append(df_temp)
 
-        result = pd.concat(frames)
+        df_all_results = pd.concat(frames)
         frames = []
-        del df_temp, df
-        result.reset_index(drop=True, inplace=True)
-        return(result)
+        del df_temp, df, df_num_records
+        df_all_results.reset_index(drop=True, inplace=True)
+        return(df_all_results)
