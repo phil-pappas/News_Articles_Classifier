@@ -46,7 +46,7 @@ class EDA:
         df = df[df[column_name] < less_than_value]
         return df
 
-    def display_distribution(categories_count, plot_title, x_label, y_label):
+    def display_distribution_matplot(categories_count, plot_title, x_label, y_label):
         '''[Input] categories_count: type of int64 Series (1-dimension)'''
         plt.figure(figsize=(15, 10))
         plt.title(plot_title, fontsize=22)
@@ -59,6 +59,7 @@ class EDA:
         # plt.savefig("Category-articles.png")
 
     def display_distribution_donut(df, values_column, labels_column):
+        from plotly.offline import iplot
         '''        
         ------------------------- [Input Parameters] -------------------------
         --- df: Dataframe with number of records to visualise
@@ -99,6 +100,44 @@ class EDA:
             }
         }
 
+        iplot(fig)
+
+    def display_stats_distribution_pre_post_processing(df):
+        import plotly.graph_objs as go
+        from plotly.offline import iplot
+
+        data = [go.Bar(x=df['Category'],
+                       y=df['Count_Pre_Processing'],
+                       name="Pre-Processing",
+                       text=df['Count_Pre_Processing'],
+                       textposition='outside',
+                       hovertext="Reduced by "+df['Records_Loss'],
+                       marker_color='rgb(128, 0, 0)'),
+
+                go.Bar(x=df['Category'],
+                       y=df['Count_Post_Processing'],
+                       name='Post-Processing',
+                       text=df['Count_Post_Processing'],
+                       textposition='outside',
+                       hovertext="Reduced by "+df['Records_Loss'],
+                       marker_color='rgb(0, 64, 128)')]
+
+        layout = go.Layout(
+            barmode='group',
+            title='Removing duplicate and null records from the dataset (hover for percentages)',
+            xaxis_title="Categories",
+            yaxis_title="# of Records",
+            autosize=False,
+            width=900,
+            height=500,
+            legend=dict(
+                x=0,
+                y=0.99,
+                bgcolor='rgba(255, 255, 255, 0)',
+                bordercolor='rgba(255, 255, 255, 0)'
+            ))
+
+        fig = go.Figure(data=data, layout=layout)
         iplot(fig)
 
     def display_buzzwords(text_values):
