@@ -29,7 +29,17 @@ class Cleaner:
         df.Text.replace(r'[^\x00-\x7F]', ' ', regex=True, inplace=True)
         return df
 
-    def remove_most_noisy_words(df, file_name):
+    def remove_most_noisy_words(df):
+        '''TO BE UPDATED WITH MORE REGEXES - NEED TO DO IN A SEPARATE NOTEBOOK'''
+        # removes whatever is inside brackets. for example {* loginWidget *}
+        df.Text.replace(r'(\{.*?\})', ' ', regex=True, inplace=True)
+
+        # removes sentences that begin with the following phrases
+        df.Text.replace(
+            r'(By using this website.*?\.)|(Learn about careers.*?\.)|(\( Source : .*?\))|((Published By:).*?\-)', ' ', regex=True, inplace=True)
+        return df
+
+    def remove_most_noisy_words_from_file(df, file_name):
         '''Remove predefined noisy words. These words have been detected with n-grams'''
         noisy_file = open(file_name, 'r')
         all_lines = noisy_file.readlines()
@@ -107,7 +117,7 @@ class Cleaner:
     def remove_time(df):
         # removes 09:11 PM - doesn't remove 23:38 because there is no PM nor AM
         df.Text.replace(
-            r'\b((1[0-2]|0?[1-9]):([0-5][0-9]) *([AaPp]*.[Mm]*.))', ' ', regex=True, inplace=True)
+            r'\b((1[0-2]|0?[1-9]):([0-5][0-9])\s+([ap]?.[m]{1}.))', ' ', regex=True, inplace=True)
         # removes 23:38 format
         df.Text.replace(
             r'\b([0-1]([0-9])|([2])([0-3])):([0-5][0-9])', ' ', regex=True, inplace=True)
