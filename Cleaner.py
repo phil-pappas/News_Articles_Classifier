@@ -14,7 +14,7 @@ class Cleaner:
         return df
 
     def drop_duplicate_values(df):
-        df.drop_duplicates(subset=['Text'], keep=False, inplace=True)
+        df.drop_duplicates(subset=['Text'], keep='last', inplace=True)
         return df
 
     def remove_new_line(df):
