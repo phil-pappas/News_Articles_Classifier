@@ -18,8 +18,10 @@ class EDA:
         else:
             print(message + "{seconds} seconds".format(seconds=time_taken))
 
-    def display_outliers_boxplot(df, column_name):
-        sns.boxplot(x=df[column_name])
+    def display_outliers_boxplot(df, column_name, x_name, y_name, title_name):
+        # sns.boxplot(x=df[column_name]) seaborn boxplot
+        px.box(df, x=x_name, y=y_name, title=title_name,
+               hover_data=[column_name]).show()
 
     def display_outliers_skewness_value(df, column_name):
         '''Several machine learning algorithms make the assumption that the data 
