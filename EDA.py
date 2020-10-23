@@ -194,6 +194,35 @@ class EDA:
     def count_words_per_records_opt_2(df):
         return df.Text.apply(lambda x: len(str(x).split()))
 
+    def calculate_loss_percentages(df_process_stats, len_current_df, initial_size):
+        '''
+        ------------------------- [Input Parameters] -------------------------
+        --- df_process_stats: Dataframe consisted of the stats
+        --- len_current_df (integer) : Lenght of the (current) df to be compared
+        --- initial_size (integer)   : Lenght of the initial dataframe
+        ----------------------------------------------------------------------
+        This function calculates the loss percentages between the initial dataset of news compared to the current dataframe that will be given. All the calculations are stored in the df_process_stats dataframe and it displays the relative messages to the user.
+        '''
+        lossPercentage = []
+        for index, row in df_process_stats.iterrows():
+            temp = EDA.difference_percentage(
+                row['Count_Pre_Processing'], row['Count_Post_Processing'])
+            lossPercentage.append(str(temp)+"%")
+
+        df_process_stats['Records_Loss'] = lossPercentage
+
+        total_loss = round(
+            (((len_current_df-initial_size)/initial_size)*100), 2)
+        print("Total records pre-processing: " +
+              str(df_process_stats['Count_Pre_Processing'].sum()))
+        print("Total subtracted records: " +
+              str(df_process_stats['Count_Post_Processing'].sum()-df_process_stats['Count_Pre_Processing'].sum()))
+        print("Total records post-processing: " +
+              str(df_process_stats['Count_Post_Processing'].sum()))
+
+        print("Total loss: " + str(total_loss) + "% of the initial records")
+        return df_process_stats
+
     def difference_percentage(num_A, num_B):
         "Differences between two numbers as a percentage with two digits e.g. 45.38%"
         if (num_A >= num_B):
