@@ -104,7 +104,7 @@ class EDA:
 
         iplot(fig)
 
-    def display_stats_distribution_pre_post_processing(df):
+    def display_stats_distribution_pre_post_processing(df, chart_title):
         import plotly.graph_objs as go
         from plotly.offline import iplot
 
@@ -126,7 +126,7 @@ class EDA:
 
         layout = go.Layout(
             barmode='group',
-            title='Removing duplicate and null records from the dataset (hover for percentages)',
+            title=chart_title,
             xaxis_title="Categories",
             yaxis_title="# of Records",
             autosize=False,
