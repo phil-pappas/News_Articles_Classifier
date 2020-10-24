@@ -60,7 +60,7 @@ class EDA:
         plt.show()
         # plt.savefig("Category-articles.png")
 
-    def display_distribution_donut(df, values_column, labels_column):
+    def display_distribution_donut(df, values_column, labels_column, chart_title):
         from plotly.offline import iplot
         '''        
         ------------------------- [Input Parameters] -------------------------
@@ -86,7 +86,7 @@ class EDA:
                     "automargin": False
                 }],
             "layout": {
-                "title": "Dataset Distribution",
+                "title": chart_title,
                 "annotations": [
                     {
                         "font": {
