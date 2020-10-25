@@ -71,6 +71,14 @@ class Cleaner:
         # updated:, 10:17, a.m., friday,, oct., 2,, 2015, |,
         # posted:, 10:16, a.m., friday,, oct., 2,, 2015,
 
+    def remove_ghost_words(list_2d):
+        for i in range(len(list_2d)):
+            temp_inner_list = list_2d[i]
+            for word in temp_inner_list:
+                if(len(word) < 1):
+                    temp_inner_list.remove(word)  # remove from list
+        return list_2d
+
     def remove_single_chars(df):
         # remove chars that are single such as "s"/.
         # If you replace the apostrophe "That's" then it's left "That s
