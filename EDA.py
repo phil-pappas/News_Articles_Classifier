@@ -142,9 +142,17 @@ class EDA:
         fig = go.Figure(data=data, layout=layout)
         iplot(fig)
 
-    def display_buzzwords(text_values):
-        '''[Input] text_values: Array of text elements separated by comma'''
-        t1 = time.time()
+    def display_buzzwords(text_values, category, type, save_or_not):
+        '''[Input] '''
+        '''
+        ------------------------- [Input Parameters] -------------------------
+        --- text_values: Array of text elements separated by comma
+        --- category (string): Name of the category in order to be used for saving 
+        --- type (string) : Display buzzwords per class or as one buzzwords cloud
+        --- save_or_not (boolean) : When 'True' it saves the images on the corresponding folder
+        ----------------------------------------------------------------------
+        This function calculates the loss percentages
+        '''
 
         long_string = ','.join(text_values)
         # Create a WordCloud object
@@ -152,13 +160,16 @@ class EDA:
                               max_words=5000, contour_width=3, contour_color='steelblue')
         wordcloud = wordcloud.generate(long_string)
         # wordcloud.to_image()
-
         plt.figure(figsize=(20, 10))
-        plt.imshow(wordcloud)
 
-        t2 = time.time()
-        print("Process completed.\nTime taken:")
-        print("{:.2f}".format(round(t2-t1, 2))+" seconds.")
+        if(save_or_not):
+            if(type == 'per_class'):
+                wordcloud.to_file(
+                    'visuals/buzzwords_class_' + category + '.png')
+                print("The images have been saved at visuals folder.")
+            elif(type == 'all_classes'):
+                wordcloud.to_file('visuals/buzzwords_all_classes.png')
+                plt.imshow(wordcloud)
 
     def display_outliers(df):
         # to do
