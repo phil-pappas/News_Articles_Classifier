@@ -171,21 +171,24 @@ class EDA:
     def find_most_common_n_grams(articles_split_by_word, n):
         occurrences = {}
         for item in articles_split_by_word:
-            ngrams_per_article = collections.Counter(EDA.find_ngrams(item, n))
+
+            ngrams_per_article = collections.Counter(
+                EDA.find_ngrams(item, n))
             items_list = list(ngrams_per_article.most_common(n))
             words_list = []
             # print(items_list)
             if (items_list):
-                for item in items_list[0][0]:
-                    words_list.append(item)
+                for word in items_list[0][0]:
+                    words_list.append(word)
 
-                words = ' '.join(map(str, words_list))
-                #occurrences_within_article = list_of_dict_values[0][1]
-                #print("words: "+words)
-                if words in occurrences:
-                    occurrences[words] += 1
-                else:
-                    occurrences[words] = 1
+                if(words_list):
+                    words = ' '.join(map(str, words_list))
+                    #occurrences_within_article = list_of_dict_values[0][1]
+                    #print("words: "+words)
+                    if words in occurrences:
+                        occurrences[words] += 1
+                    else:
+                        occurrences[words] = 1
         return occurrences
 
     def count_words_per_records_opt_1(df):
