@@ -171,11 +171,6 @@ class EDA:
                 wordcloud.to_file('visuals/buzzwords_all_classes.png')
                 plt.imshow(wordcloud)
 
-    def display_outliers(df):
-        # to do
-        # display a boxplot?
-        return df
-
     def find_ngrams(input_list, n):
         return list(zip(*(input_list[i:] for i in range(n))))
 
