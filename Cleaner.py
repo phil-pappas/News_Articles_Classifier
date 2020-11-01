@@ -36,7 +36,7 @@ class Cleaner:
 
         # removes sentences that begin with the following phrases
         df.Text.replace(
-            r'(By using this website.*?\.)|(Learn about careers.*?\.)|(\( Source : .*?\))|((Published By:).*?\-)', ' ', regex=True, inplace=True)
+            r'(Learn about careers.*?\.)|(\( Source : .*?\))|((Published By:).*?\-)', ' ', regex=True, inplace=True)
         # (Ads with Photos only:.*?RSS Feeds .)
         # (Terms Quotes.*?\s+-\s+News Network)
         # (DJ\?@.*?k\^Am|kAm.*?k\^Am)
