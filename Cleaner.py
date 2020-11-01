@@ -36,11 +36,10 @@ class Cleaner:
 
         # removes sentences that begin with the following phrases
         df.Text.replace(
-            r'(Learn about careers.*?\.)|(\( Source : .*?\))|((Published By:).*?\-)', ' ', regex=True, inplace=True)
-        # (Ads with Photos only:.*?RSS Feeds .)
-        # (Terms Quotes.*?\s+-\s+News Network)
+            r'(Learn about careers.*?\.)|(\( Source : .*?\))', ' ', regex=True, inplace=True)
+
         # (DJ\?@.*?k\^Am|kAm.*?k\^Am)
-        # (Click to play video Return to video Video settings Please Log in to update your video settings Video will begin in 5 seconds. Don't play Play now More video Recommended Replay video Return to video Video settings Please Log in to update your video settings)|(Return to video Video settings Please Log in to update your video settings Video will begin in 5 seconds. Don't play Play now More video Recommended)
+
         return df
 
     def remove_most_noisy_words_from_file(df, file_name):
