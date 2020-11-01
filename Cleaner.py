@@ -38,7 +38,7 @@ class Cleaner:
         df.Text.replace(
             r'(By using this website.*?\.)|(Learn about careers.*?\.)|(\( Source : .*?\))|((Published By:).*?\-)', ' ', regex=True, inplace=True)
         # (Ads with Photos only:.*?RSS Feeds .)
-        # (Terms Quotes.*? - News Network)
+        # (Terms Quotes.*?\s+-\s+News Network)
         # (DJ\?@.*?k\^Am|kAm.*?k\^Am)
         # (Click to play video Return to video Video settings Please Log in to update your video settings Video will begin in 5 seconds. Don't play Play now More video Recommended Replay video Return to video Video settings Please Log in to update your video settings)|(Return to video Video settings Please Log in to update your video settings Video will begin in 5 seconds. Don't play Play now More video Recommended)
         return df
