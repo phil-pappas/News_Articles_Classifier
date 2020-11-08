@@ -30,15 +30,67 @@ class Cleaner:
         return df
 
     def remove_most_noisy_words(df):
-        '''TO BE UPDATED WITH MORE REGEXES - NEED TO DO IN A SEPARATE NOTEBOOK'''
-        # removes whatever is inside brackets. for example {* loginWidget *}
-        df.Text.replace(r'(\{.*?\})', ' ', regex=True, inplace=True)
-
-        # removes sentences that begin with the following phrases
+        '''THE FOLLOWING REGEXES ARE EXPLAINED IN THE Find_Noisy_words NOTEBOOK'''
+        df.Text.replace(r'(\{.*?\})', '', regex=True, inplace=True)
         df.Text.replace(
-            r'(Learn about careers.*?\.)|(\( Source : .*?\))', ' ', regex=True, inplace=True)
-
-        # (DJ\?@.*?k\^Am|kAm.*?k\^Am)
+            r'((Most Read)|(Need a Profile\?)|(By using this website)|(By submitting your registratio)).*?a link to create a new password\.', '', regex=True, inplace=True)
+        df.Text.replace(r'(By using this website.*?\.)',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'(Tip : Use comma.*?Learn more...)',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'(Published By:).*?\-', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'(Ads with Photos only:.*?RSS Feeds .)\s*(Featured Classifieds)*', '', regex=True, inplace=True)
+        df.Text.replace(r'(Terms Quotes.*?\s*\-*\s+News Network)',
+                        '', regex=True, inplace=True)
+        df.Text.replace(
+            r'Article extract not available\. Link to *(the)* source for the full article\.*', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'((Subscription Required An online service)|(Need an account\? Create one now)).*', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'(Sorry, an error occurred\.)*\s(Please sign in or register to leave a comment).*', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'((Join the conversation Sign)|(There are no comments yet\. Be the first)).*', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'(\(AP Photo.*?\))|(\(Photo by.*?\)|(\(Photo\:.*?\)))', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'((SUBSCRIBE FOLLOW US)|Copyright)*\s2015*\s(Cox Media Group)', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'((Copyright 2015).*?All rights reserved.)\s+(This material may not be published, broadcast, rewritten or redistributed)*', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'Related Sponsored Links By Cox Media Group National Content Desk', '', regex=True, inplace=True)
+        df.Text.replace(r'This material may not be published.*?\.',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'Copyright.*?\.', '', regex=True, inplace=True)
+        df.Text.replace(r'Thank you for registering! We have sent.*',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'(Click to play video Return to video Video settings Please Log in to update your video settings Video will begin in 5 seconds\. Don\'t play Play now More video Recommended Replay video Return to video Video settings Please Log in to update your video settings)|(Return to video Video settings Please Log in to update your video settings Video will begin in 5 seconds\. Don\'t play Play now More video Recommended)', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'((Click to play video)|(Replay video))*\s+(Return to video Video settings Please Log in to update your video settings)', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'(Video will begin in 5 seconds\. Don\'t play Play now More video Recommended)', '', regex=True, inplace=True)
+        df.Text.replace(r'Company News - .*-', '', regex=True, inplace=True)
+        df.Text.replace(r'For Updates Check.*', '', regex=True, inplace=True)
+        df.Text.replace(
+            r'Make Your Passion Your Career.*?job that interests you:', '', regex=True, inplace=True)
+        df.Text.replace(r'\( Source : .*?\)', '', regex=True, inplace=True)
+        df.Text.replace(r'Learn about careers.*?\.',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'CONNECT TWEET LINKEDIN COMMENT EMAIL MORE',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'Local Real Estate Cars For Sale',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'By Kyle Newport,.*', '', regex=True, inplace=True)
+        df.Text.replace(r'> Top News', '', regex=True, inplace=True)
+        df.Text.replace(r'> Entertainment', '', regex=True, inplace=True)
+        df.Text.replace(r'^.*(?=License Photo).*?\-\-',
+                        '', regex=True, inplace=True)
+        df.Text.replace(
+            r'\* \* A version of this article appeared.*?\.', '', regex=True, inplace=True)
+        df.Text.replace(r'^.*(?=License Photo).*?\-\-',
+                        '', regex=True, inplace=True)
+        df.Text.replace(r'(DJ\?@.*?k\^Am|kAm.*?k\^Am)',
+                        '', regex=True, inplace=True)
 
         return df
 
