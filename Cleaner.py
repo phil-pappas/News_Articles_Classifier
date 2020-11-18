@@ -94,38 +94,6 @@ class Cleaner:
 
         return df
 
-    def remove_most_noisy_words_from_file(df, file_name):
-        '''Remove predefined noisy words. These words have been detected with n-grams'''
-        noisy_file = open(file_name, 'r')
-        all_lines = noisy_file.readlines()
-        lst = []
-
-        for line in all_lines:
-            # lst.append(line.strip())
-            string_to_replace = line.strip()
-            df.Text.replace(string_to_replace, ' ', regex=True, inplace=True)
-            df.Text.replace(r'\( source.*\)', ' ', regex=True, inplace=True)
-            df.Text.replace(r'\{(.*?)}', ' ', regex=True, inplace=True)
-        noisy_file.close()
-        #df.Text.replace({w: " " for w in lst}, regex=True, inplace=True)
-        return df
-        # to do - THIS ONE GOES TO ANOTHER CLASSS?
-        # source : university || source : something   | \( source.*\)
-        # {* registration_firstname *}  | \{(.*?)}
-        # article extract not available.
-        # ads with photos only
-        # thank you for registering
-        # tip : use comma'
-        # need an account? create one now.
-        # connect tweet linkedin comment email more
-        # @telefootball
-        # license photo
-        # october, 2015 || oct. 21, 2015 || sept. || september
-        # you have successfully emailed the post.
-        # photo:
-        # updated:, 10:17, a.m., friday,, oct., 2,, 2015, |,
-        # posted:, 10:16, a.m., friday,, oct., 2,, 2015,
-
     def remove_ghost_words(list_2d):
         for i in range(len(list_2d)):
             temp_inner_list = list_2d[i]
