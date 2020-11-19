@@ -95,11 +95,11 @@ class Cleaner:
         return df
 
     def remove_ghost_words(list_2d):
-        for i in range(len(list_2d)):
-            temp_inner_list = list_2d[i]
-            for word in temp_inner_list:
+        for i in list_2d.iteritems():
+            for word in i[1]:
                 if(len(word) < 1):
-                    temp_inner_list.remove(word)  # remove from list
+                    i[1].remove(word)  # remove from list
+
         return list_2d
 
     def remove_single_chars(df):
