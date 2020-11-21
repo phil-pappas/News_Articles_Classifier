@@ -4,7 +4,7 @@ from packages_imported import *
 class EDA:
     # def __init__(self):
 
-    def process_time(time_taken):
+    def process_time(self, time_taken):
         message = "Process completed.\nTime taken: "
         if (time_taken >= 3600):
             print(message + "{hours}h {minutes}mins {seconds}secs".format(
@@ -18,12 +18,12 @@ class EDA:
         else:
             print(message + "{seconds} seconds".format(seconds=time_taken))
 
-    def display_outliers_boxplot(df, column_name, x_name, y_name, title_name):
+    def display_outliers_boxplot(self, df, column_name, x_name, y_name, title_name):
         # sns.boxplot(x=df[column_name]) seaborn boxplot
         px.box(df, x=x_name, y=y_name, title=title_name,
                hover_data=[column_name]).show()
 
-    def display_outliers_skewness_value(df, column_name):
+    def display_outliers_skewness_value(self, df, column_name):
         '''Several machine learning algorithms make the assumption that the data 
         follow a normal (or Gaussian) distribution. This is easy to check with 
         the skewness value, which explains the extent to which the data is normally distributed. 
@@ -32,7 +32,7 @@ class EDA:
         Source: https://www.pluralsight.com/guides/cleaning-up-data-from-outliers'''
         print(df[column_name].skew())
 
-    def remove_outliers_by_iqr_score(df):
+    def remove_outliers_by_iqr_score(self, df):
         '''Calculating the IQR Score in order to remove the outliers.'''
         Q1 = df.quantile(0.25)
         Q3 = df.quantile(0.75)
@@ -43,12 +43,12 @@ class EDA:
         # print(df_out.shape)
         return df_out
 
-    def remove_outliers_by_range(df, column_name, greater_than_value, less_than_value):
+    def remove_outliers_by_range(self, df, column_name, greater_than_value, less_than_value):
         df = df[df[column_name] > greater_than_value]
         df = df[df[column_name] < less_than_value]
         return df
 
-    def display_distribution_matplot(categories_count, plot_title, x_label, y_label):
+    def display_distribution_matplot(self, categories_count, plot_title, x_label, y_label):
         '''[Input] categories_count: type of int64 Series (1-dimension)'''
         plt.figure(figsize=(15, 10))
         plt.title(plot_title, fontsize=22)
@@ -60,7 +60,7 @@ class EDA:
         plt.show()
         # plt.savefig("Category-articles.png")
 
-    def display_distribution_donut(df, values_column, labels_column, chart_title):
+    def display_distribution_donut(self, df, values_column, labels_column, chart_title):
         from plotly.offline import iplot
         '''        
         ------------------------- [Input Parameters] -------------------------
@@ -104,7 +104,7 @@ class EDA:
 
         iplot(fig)
 
-    def display_stats_distribution_pre_post_processing(df, chart_title):
+    def display_stats_distribution_pre_post_processing(self, df, chart_title):
         import plotly.graph_objs as go
         from plotly.offline import iplot
 
@@ -142,7 +142,7 @@ class EDA:
         fig = go.Figure(data=data, layout=layout)
         iplot(fig)
 
-    def display_buzzwords(text_values, category, type, save_or_not):
+    def display_buzzwords(self, text_values, category, type, save_or_not):
         '''[Input] '''
         '''
         ------------------------- [Input Parameters] -------------------------
@@ -171,10 +171,10 @@ class EDA:
                 wordcloud.to_file('visuals/buzzwords_all_classes.png')
                 plt.imshow(wordcloud)
 
-    def find_ngrams(input_list, n):
+    def find_ngrams(self, input_list, n):
         return list(zip(*(input_list[i:] for i in range(n))))
 
-    def find_most_common_n_grams(articles_split_by_word, n):
+    def find_most_common_n_grams(self, articles_split_by_word, n):
         occurrences = {}
         for item in articles_split_by_word:
 
@@ -197,13 +197,13 @@ class EDA:
                         occurrences[words] = 1
         return occurrences
 
-    def count_words_per_records_opt_1(df):
+    def count_words_per_records_opt_1(self, df):
         return df['Text'].str.split().str.len()
 
-    def count_words_per_records_opt_2(df):
+    def count_words_per_records_opt_2(self, df):
         return df.Text.apply(lambda x: len(str(x).split()))
 
-    def calculate_loss_percentages(df_process_stats, len_current_df, initial_size):
+    def calculate_loss_percentages(self, df_process_stats, len_current_df, initial_size):
         '''
         ------------------------- [Input Parameters] -------------------------
         --- df_process_stats: Dataframe consisted of the stats
@@ -232,7 +232,7 @@ class EDA:
         print("Total loss: " + str(total_loss) + "% of the initial records")
         return df_process_stats
 
-    def difference_percentage(num_A, num_B):
+    def difference_percentage(self, num_A, num_B):
         "Differences between two numbers as a percentage with two digits e.g. 45.38%"
         if (num_A >= num_B):
             temp = ((num_B-num_A)/num_A) * 100
@@ -242,12 +242,14 @@ class EDA:
             temp = round(temp, 2)  # keep only two digits after decimal
         return temp
 
-    def count_records_per_label(df, new_column_name):
+    def count_records_per_label(self, df, new_column_name):
         "count the number of records for each category and store them in a new column"
         return df.groupby(['Category'], sort=False).size().reset_index(name=new_column_name)
 
-    def balance_dataset_distribution(df, min_quantile, max_quantile):
+    def balance_dataset_distribution(self, df, min_quantile, max_quantile):
         '''
+        https://www.kaggle.com/rafjaa/resampling-strategies-for-imbalanced-datasets
+        https://machinelearningmastery.com/random-oversampling-and-undersampling-for-imbalanced-classification/
         ------------------------- [Input Parameters] -------------------------
         --- df: Dataframe to balance
         --- min_quantile: A float number the minimum quantile value to extract
@@ -298,3 +300,11 @@ class EDA:
         del df_temp, df, df_num_records
         df_all_results.reset_index(drop=True, inplace=True)
         return(df_all_results)
+
+    def print_most_common_words(self, articles_split_by_word, color, number):
+        # credits to: https://www.kaggle.com/tanulsingh077/twitter-sentiment-extaction-analysis-eda-and-model/notebook
+        top = Counter(
+            [item for sublist in articles_split_by_word for item in sublist])
+        temp = pd.DataFrame(top.most_common(number))
+        temp.columns = ['Frequest_Words', '#Count']
+        return temp.style.background_gradient(cmap=color)
