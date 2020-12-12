@@ -18,6 +18,29 @@ class EDA:
         else:
             print(message + "{seconds} seconds".format(seconds=time_taken))
 
+    def display_confusion_matrix(y_test, y_pred, distinct_categories, plot_title):
+        conf_mat = confusion_matrix(y_test, y_pred)
+        fig, ax = plt.subplots(figsize=(10, 10))
+        heatmap = sns.heatmap(conf_mat, annot=True, fmt='d',
+                              xticklabels=distinct_categories, yticklabels=Y.drop_duplicates(), square=True)
+        plt.ylabel('Actual', size=20)
+        plt.xlabel('Predicted', size=20)
+        ax.set_title(plot_title, size=20)
+
+        # rotate text in the x axis
+        heatmap.set_xticklabels(heatmap.get_xmajorticklabels(), rotation=40)
+        # change the text in the x,y axis
+        heatmap.set_xticklabels(heatmap.get_xmajorticklabels(), fontsize=13)
+        heatmap.set_yticklabels(heatmap.get_ymajorticklabels(), fontsize=13)
+
+        # Fixing the margin problem
+        b, t = plt.ylim()  # discover the values for bottom and top
+        b += 0.5  # Add 0.5 to the bottom
+        t -= 0.5  # Subtract 0.5 from the top
+        plt.ylim(b, t)  # update the ylim(bottom, top) values
+        ####
+        plt.show()
+
     def display_outliers_boxplot(df, column_name, x_name, y_name, title_name):
         # sns.boxplot(x=df[column_name]) seaborn boxplot
         px.box(df, x=x_name, y=y_name, title=title_name,
