@@ -19,10 +19,15 @@ class EDA:
             print(message + "{seconds} seconds".format(seconds=time_taken))
 
     def display_confusion_matrix(y_test, y_pred, distinct_categories, plot_title):
+        from sklearn.metrics import confusion_matrix
+        import numpy as np
+
         conf_mat = confusion_matrix(y_test, y_pred)
         fig, ax = plt.subplots(figsize=(10, 10))
         heatmap = sns.heatmap(conf_mat, annot=True, fmt='d',
-                              xticklabels=distinct_categories, yticklabels=Y.drop_duplicates(), square=True)
+                              xticklabels=np.unique(y_test),
+                              yticklabels=np.unique(y_pred),
+                              square=True)
         plt.ylabel('Actual', size=20)
         plt.xlabel('Predicted', size=20)
         ax.set_title(plot_title, size=20)
