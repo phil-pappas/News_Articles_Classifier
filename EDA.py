@@ -18,6 +18,17 @@ class EDA:
         else:
             print(message + "{seconds} seconds".format(seconds=time_taken))
 
+    def display_accuracy_scores_per_parameter(x_values, y_values, x_label, y_label, title):
+        #import plotly.express as px
+        fig = px.scatter(x=x_values,
+                         y=y_values,
+                         labels={
+                             "x": x_label,
+                             "y": y_label
+                         },
+                         title=title)
+        fig.show()
+
     def display_confusion_matrix(y_test, y_pred, distinct_categories, plot_title):
         from sklearn.metrics import confusion_matrix
         import numpy as np
