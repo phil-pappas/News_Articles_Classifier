@@ -1,5 +1,10 @@
 dash plots: https://github.com/plotly/dash
 
+
+Old dataset may not work for recent news / High-level view of the pipeline flow
+https://medium.com/axel-springer-tech/how-to-classify-news-articles-in-the-real-world-144cc9f99540
+
+
 use class with functions like this:
 https://github.com/FisherKK/F1sherKK-MyRoadToAI/blob/master/AI-Implementations/MachineLearning/PrincipalComponentAnalysis/PCA_Raw.ipynb
 
