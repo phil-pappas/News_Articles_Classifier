@@ -13,6 +13,8 @@ from nltk.stem import WordNetLemmatizer
 import gc
 import plotly
 import plotly.express as px
+import plotly.graph_objs as go
+from plotly.offline import iplot
 from collections import Counter
 from sklearn.metrics import confusion_matrix
 import numpy as np
