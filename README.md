@@ -1,4 +1,5 @@
-_Instructions: In order to execute this project you will have to download the files manually as they are too large for uploading them in a Github repo_
+_Note: The present repo is set only for demonstration purposes. If you would like to execute this project, please reach out to me for instructions. If you would like to have a look at the original datasets, you will have to download the files manually as they are too large for uploading them in a Github repo_ <br/>
+_<b>Important</b>: If Github is unable to load a notebook, please use [Jupyter NBViewer](https://nbviewer.jupyter.org/) by just copying-pasting the Github link of the corresponding notebook. That will render the notebook view properly._
 
 # News Classifier
 
@@ -79,6 +80,7 @@ As we see from the above image, the best algorithms were by far Support Vectors 
 <div style="text-align:center"><img src="visuals/READme/dask.png" alt=DASK" width="580" height="250"></div> <br/>
 For applying our GridSearch, I used a small representation of the whole dataset to save up time and computing capacity. However, I knew that this might be a problem when I will have to fit the model with the whole dataset. There was no way for me to fit the final model in 76GB of memory and I had to search for alternatives.
 <br/>
+
 [Dask](https://dask.org/) offers advanced parallelization for analytics while using efficiently disk capacity instead of memory and it can leverage the multi-core CPUs for distributed computing.
 
 That helped me not only to fit the whole dataset but also to see our accuracy improving by <b>8.2%</b> (!).
