@@ -1,5 +1,4 @@
 import pandas as pd
-import progress_bar
 import time
 import collections
 import matplotlib.pyplot as plt
