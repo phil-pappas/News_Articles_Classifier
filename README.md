@@ -42,41 +42,41 @@ The data has been collected by Webhose.io, a company that turns multiple vertica
 
 ### 1. Unbalanced dataset distribution
 
-![Dataset Pre/Post Processing](visuals/readme/dataset.png)
+![Dataset Pre/Post Processing](visuals/READme/dataset.png)
 One of the main challenges I came across was the unbalanced distribution of the dataset. Especially after processing, the distribution did not shift greatly.
 
 ### 2. Balancing the distribution of the dataset using a custom undersampling method
 
-<div style="text-align:center"><img src="visuals/readme/undersampling.png" alt="Dataset Pre/Post Processing" width="400" height="250"></div> <br/>
+<div style="text-align:center"><img src="visuals/READme/undersampling.png" alt="Dataset Pre/Post Processing" width="400" height="250"></div> <br/>
 As you see for the image above, in undersampling we are using the minority class as a max limit to extract samples from the majority class. In general, this method is frequently used in the Machine Learning area, however, it has also a risk of information loss as we remove random samples from another class. <br/>
 In order to ensure that we will collect only qualitative records and minimize the risk of information loss, we selected random samples with the help of quantiles in the outliers detection.<br/><br/>
 
 <div style="text-align:center"><b>Theory</b></div>
 
-<div style="text-align:center"><img src="visuals/readme/outliers.png" alt="Dataset Pre/Post Processing" width="650" height="250"></div> <br/>
+<div style="text-align:center"><img src="visuals/READme/outliers.png" alt="Dataset Pre/Post Processing" width="650" height="250"></div> <br/>
 
 <div style="text-align:center"><b>Our dataset's boxplot</b></div>
 
-<div style="text-align:center"><img src="visuals/readme/boxplot.png" alt="Dataset Pre/Post Processing" width="520" height="350"></div> <br/>
+<div style="text-align:center"><img src="visuals/READme/boxplot.png" alt="Dataset Pre/Post Processing" width="520" height="350"></div> <br/>
 <b><i>Using Plotly's boxplot I was able to visualize the outliers in 4 quantiles. Next, I identified the number of records of the minority class (let's say X number) and I took X number of random records for every other class but only for the records that were between Q1 and Q3. In that way, I make sure to extract only qualitative records of every downsampled class and reduce the risk of information loss as much as possible.</i></b>
 <br/> <br/>
 
 <div style="text-align:center"><b>Final Dataset</b></div>
 
-![Final Dataset Distribution](visuals/readme/final_distribution.png)
+![Final Dataset Distribution](visuals/READme/final_distribution.png)
 More info in [Data Cleaning pt2](3_Data_Cleaning_pt2.ipynb) and in [EDA.py](EDA.py) file.
 <br/><br/><br/><br/>
 
 ### 3. Algorithms Comparison - GridSearch Results
 
-![Dataset Pre/Post Processing](visuals/readme/algorithms.png)
+![Dataset Pre/Post Processing](visuals/READme/algorithms.png)
 
 Accuracy can be a valid choice for our classification evaluation challenge since the dataset is well balanced.<br/>
 As we see from the above image, the best algorithms were by far Support Vectors with the implementation of [SVC](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html) coming 1st and [SDG](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier) (stochastic gradient descent) following in 2nd place with a very small difference.
 
 ### 4. Pandas crashes as it was unable to locate <b>76GB</b> in RAM for training the model with the full dataset! Now what?
 
-<div style="text-align:center"><img src="visuals/readme/dask.png" alt=DASK" width="580" height="250"></div> <br/>
+<div style="text-align:center"><img src="visuals/READme/dask.png" alt=DASK" width="580" height="250"></div> <br/>
 For applying our GridSearch, I used a small representation of the whole dataset to save up time and computing capacity. However, I knew that this might be a problem when I will have to fit the model with the whole dataset. There was no way for me to fit the final model in 76GB of memory and I had to search for alternatives.
 <br/>
 [Dask](https://dask.org/) offers advanced parallelization for analytics while using efficiently disk capacity instead of memory and it can leverage the multi-core CPUs for distributed computing.
