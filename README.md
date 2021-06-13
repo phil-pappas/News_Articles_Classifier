@@ -75,7 +75,7 @@ More info in [Data Cleaning pt2](3_Data_Cleaning_pt2.ipynb) and in [EDA.py](EDA.
 Accuracy can be a valid choice for our classification evaluation challenge since the dataset is well balanced.<br/>
 As we see from the above image, the best algorithms were by far Support Vectors with the implementation of [SVC](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html) coming 1st and [SDG](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier) (stochastic gradient descent) following in 2nd place with a very small difference.
 
-### 4. Pandas crashes as it was unable to locate <b>76GB</b> in RAM for training the model with the full dataset! Now what?
+### 4. Pandas crashed as it was unable to locate <b>76GB</b> in RAM for training the model with the full dataset! Now what?
 
 <div style="text-align:center"><img src="visuals/READme/dask.png" alt=DASK" width="580" height="250"></div> <br/>
 For applying our GridSearch, I used a small representation of the whole dataset to save up time and computing capacity. However, I knew that this might be a problem when I will have to fit the model with the whole dataset. There was no way for me to fit the final model in 76GB of memory and I had to search for alternatives.
