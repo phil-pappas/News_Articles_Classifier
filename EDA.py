@@ -347,3 +347,35 @@ class EDA:
         temp = pd.DataFrame(top.most_common(number))
         temp.columns = ['Frequest_Words', '#Count']
         return temp.style.background_gradient(cmap=color)
+
+    def models_barchart(df, chart_title):
+
+        data = [go.Bar(x=df['Accuracy'],
+                       y=df['Algorithm'],
+                       name="Scores",
+                       text=df['Accuracy'],
+                       textposition='outside',
+                       orientation='h',
+                       texttemplate="<b>%{x:.2f}%</b>",
+                       marker=dict(color=df['Accuracy'],
+                                    colorscale='curl'))]
+
+        layout = go.Layout(
+            barmode='relative',
+            title={
+                'text': chart_title,
+                'y': 0.9,
+                'x': 0.5,
+                'xanchor': 'center',
+                'yanchor': 'top'},
+            xaxis_title="% Accuracy",
+            yaxis_title="Algorithm",
+            xaxis=dict(range=[0, 85]),
+            autosize=False,
+            width=900,
+            height=500,
+            font=dict(size=14)
+        )
+
+        fig = go.Figure(data=data, layout=layout)
+        iplot(fig)
