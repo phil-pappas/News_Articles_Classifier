@@ -18,7 +18,7 @@ The categories we have are:
 6. Financial
 7. Technology
 
-We would like to test out different Machine Learning algorithms and see which one has the highest score but before we do so, our main focus will be on cleaning the data and prepare them for training and testing.
+We would like to test out different classification algorithms and see which one has the highest score but before we do so, our main focus will be on cleaning the data and prepare them for training and testing.
 
 ### Methods Used
 
